@@ -1,6 +1,26 @@
 require "nvchad.options"
 
--- add yours here!
+local o = vim.o
+local g = vim.g
 
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
+-- WSL2 Clipboard Sync
+g.clipboard = {
+  name = "WslClipboard",
+  copy = {
+    ["+"] = { "clip.exe" },
+    ["*"] = { "clip.exe" },
+  },
+  paste = {
+    ["+"] = {
+      "/mnt/c/Windows/System32/WindowsPowerShell/v1.0///powershell.exe",
+      "-c",
+      '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    ["*"] = {
+      "/mnt/c/Windows/System32/WindowsPowerShell/v1.0///powershell.exe",
+      "-c",
+      '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+  },
+  cache_enabled = false,
+}
